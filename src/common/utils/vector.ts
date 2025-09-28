@@ -41,9 +41,24 @@ export class Vector {
 
   normalize() {
     const magnitude = this.magnitude();
+
+    if (magnitude === 0) return this;
+
     this.x /= magnitude;
     this.y /= magnitude;
 
     return this;
+  }
+
+  limit(max: number) {
+    const magnitude = this.magnitude();
+    if (magnitude > max) {
+      this.normalize();
+      this.multiply(max);
+    }
+  }
+
+  copy() {
+    return new Vector(this.x, this.y);
   }
 }
