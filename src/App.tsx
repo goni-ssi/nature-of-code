@@ -1,8 +1,8 @@
-import { Vectors } from "./01.vectors";
+import { Forces } from "./02.forces";
 import "./app.css";
 
 function App() {
-  return <Vectors />;
+  return <Forces />;
 }
 
 export default App;
