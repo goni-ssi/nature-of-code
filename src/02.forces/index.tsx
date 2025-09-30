@@ -1,5 +1,5 @@
-import { GravityAndAirResistance } from "./2.4-gravity-and-air-resistance";
+import { GravitationalAttraction } from "./2.5-gravitational-attraction";
 
 export const Forces = () => {
-  return <GravityAndAirResistance />;
+  return <GravitationalAttraction />;
 };

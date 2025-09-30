@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Vector } from "../../common/utils/vector";
 import { Mover } from "./mover";
 
-export const GravityScaledByMass = () => {
+export const GravitationalAttraction = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -22,29 +22,39 @@ export const GravityScaledByMass = () => {
 
     ctx.scale(pixelRatio, pixelRatio);
 
-    const mover1 = new Mover({
-      ctx,
-      stageWidth,
-      stageHeight,
-      position: new Vector(stageWidth / 3, stageHeight / 2),
-      mass: 20,
-      color: "green",
-    });
-
-    const mover2 = new Mover({
-      ctx,
-      stageWidth,
-      stageHeight,
-      position: new Vector((stageWidth / 3) * 2, stageHeight / 2),
-      mass: 50,
-      color: "orange",
-    });
+    const movers = Array.from(
+      { length: 10 },
+      () =>
+        new Mover({
+          ctx,
+          stageWidth,
+          stageHeight,
+          position: new Vector(
+            Math.random() * stageWidth,
+            Math.random() * stageHeight
+          ),
+          velocity: new Vector(Math.random() * 2, Math.random() * 2),
+          mass: Math.random() * 20 + 10,
+          color: "green",
+        })
+    );
 
     const animate = () => {
       requestAnimationFrame(() => {
         ctx.clearRect(0, 0, stageWidth, stageHeight);
-        mover1.draw();
-        mover2.draw();
+
+        movers.forEach((mover1) => {
+          movers.forEach((mover2) => {
+            if (mover1 !== mover2) {
+              mover1.attract(mover2);
+            }
+          });
+        });
+
+        movers.forEach((mover) => {
+          mover.draw();
+        });
+
         animate();
       });
     };

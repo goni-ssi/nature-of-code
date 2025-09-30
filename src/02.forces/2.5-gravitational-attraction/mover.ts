@@ -17,12 +17,14 @@ export class Mover {
     mass,
     stageWidth,
     stageHeight,
+    velocity,
     color,
   }: {
     ctx: CanvasRenderingContext2D;
     position: Vector;
     mass: number;
     stageWidth: number;
+    velocity: Vector;
     stageHeight: number;
     color: string;
   }) {
@@ -30,7 +32,7 @@ export class Mover {
     this.position = position;
     this.mass = mass;
     this.radius = this.mass * 1.5;
-    this.velocity = new Vector(0, 0);
+    this.velocity = velocity;
     this.acceleration = new Vector(0, 0);
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
@@ -48,46 +50,24 @@ export class Mover {
   }
 
   update() {
-    const gravityAcceleration = new Vector(0, 0.98);
-    const force = gravityAcceleration.multiply(this.mass);
-    // 중력가속도는 9.8 m/s^2 로 고정
-    const acceleration = this.applyForce(force, this.acceleration.copy());
-
-    this.velocity.add(acceleration);
+    this.velocity.add(this.acceleration);
     this.position.add(this.velocity);
-    this.checkEdges();
+
+    this.acceleration.multiply(0);
   }
 
-  checkEdges() {
-    if (this.position.x < 0) {
-      this.position.x = 0;
-      this.velocity.x *= -1;
-      this.acceleration.x *= -1;
-    }
+  attract(mover: Mover) {
+    const force = this.position.copy().subtract(mover.position);
+    const distance = Math.min(Math.max(force.magnitude(), 1), 2);
+    const G = 1;
+    const magnitude = (G * this.mass * mover.mass) / (distance * distance);
+    const attractionForce = force.normalize().multiply(magnitude);
 
-    if (this.position.x + this.radius > this.stageWidth) {
-      this.position.x = this.stageWidth - this.radius;
-      this.velocity.x *= -1;
-      this.acceleration.x *= -1;
-    }
-
-    if (this.position.y < 0) {
-      this.position.y = 0;
-      this.velocity.y *= -1;
-      this.acceleration.y *= -1;
-    }
-
-    if (this.position.y + this.radius > this.stageHeight) {
-      this.position.y = this.stageHeight - this.radius;
-      this.velocity.y *= -1;
-      this.acceleration.y *= -1;
-    }
-
-    return null;
+    this.applyForce(attractionForce);
   }
 
-  applyForce(force: Vector, acceleration: Vector) {
+  applyForce(force: Vector) {
     const accelerationByForce = force.divide(this.mass);
-    return acceleration.add(accelerationByForce);
+    return this.acceleration.add(accelerationByForce);
   }
 }

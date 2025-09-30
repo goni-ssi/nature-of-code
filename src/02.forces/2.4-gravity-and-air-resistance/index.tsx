@@ -28,6 +28,7 @@ export const GravityAndAirResistance = () => {
       stageHeight,
       position: new Vector(stageWidth / 3, stageHeight / 2),
       mass: 20,
+      color: "green",
     });
 
     const mover2 = new Mover({
@@ -36,6 +37,7 @@ export const GravityAndAirResistance = () => {
       stageHeight,
       position: new Vector((stageWidth / 3) * 2, stageHeight / 2),
       mass: 50,
+      color: "orange",
     });
 
     const animate = () => {

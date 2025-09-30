@@ -9,6 +9,7 @@ export class Mover {
   public acceleration: Vector;
   public stageWidth: number;
   public stageHeight: number;
+  public color: string;
 
   constructor({
     ctx,
@@ -16,12 +17,14 @@ export class Mover {
     mass,
     stageWidth,
     stageHeight,
+    color,
   }: {
     ctx: CanvasRenderingContext2D;
     position: Vector;
     mass: number;
     stageWidth: number;
     stageHeight: number;
+    color: string;
   }) {
     this.ctx = ctx;
     this.position = position;
@@ -31,12 +34,13 @@ export class Mover {
     this.acceleration = new Vector(0, 0);
     this.stageWidth = stageWidth;
     this.stageHeight = stageHeight;
+    this.color = color;
   }
 
   draw() {
     this.ctx.beginPath();
     this.ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-    this.ctx.fillStyle = "green";
+    this.ctx.fillStyle = this.color;
     this.ctx.fill();
     this.ctx.closePath();
 
