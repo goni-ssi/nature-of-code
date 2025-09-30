@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Vector } from "../../common/utils/vector";
 import { Mover } from "./mover";
 
-export const GravityScaledByMass = () => {
+export const GravityAndAirResistance = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {

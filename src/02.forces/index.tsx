@@ -1,5 +1,5 @@
-import { GravityScaledByMass } from "./2.3-gravity-scaled-by-mass";
+import { GravityAndAirResistance } from "./2.4-gravity-and-air-resistance";
 
 export const Forces = () => {
-  return <GravityScaledByMass />;
+  return <GravityAndAirResistance />;
 };
