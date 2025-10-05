@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { Vector } from "../../common/utils/vector";
 import { Mover } from "./mover";
 
-export const GravitationalAttraction = () => {
+export const NBodies = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export const GravitationalAttraction = () => {
     ctx.scale(pixelRatio, pixelRatio);
 
     const movers = Array.from(
-      { length: 10 },
+      { length: 5 },
       () =>
         new Mover({
           ctx,
@@ -33,9 +33,9 @@ export const GravitationalAttraction = () => {
             Math.random() * stageWidth,
             Math.random() * stageHeight
           ),
-          velocity: new Vector(Math.random() * 2, Math.random() * 2),
+          velocity: new Vector(Math.random(), Math.random()),
           mass: Math.random() * 20 + 10,
-          color: "green",
+          color: `hsl(${Math.random() * 360}, 100%, 50%)`,
         })
     );
 

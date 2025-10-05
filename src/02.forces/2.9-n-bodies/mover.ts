@@ -57,7 +57,7 @@ export class Mover {
   }
 
   attract(mover: Mover) {
-    const force = this.position.copy().subtract(mover.position);
+    const force = mover.position.copy().subtract(this.position);
     const distance = Math.min(Math.max(force.magnitude(), 1), 2);
     const G = 1;
     const magnitude = (G * this.mass * mover.mass) / (distance * distance);
