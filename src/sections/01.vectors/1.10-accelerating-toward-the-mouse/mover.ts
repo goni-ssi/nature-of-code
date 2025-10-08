@@ -19,7 +19,10 @@ export class Mover {
     this.ctx = ctx;
     this.position = position;
     this.velocity = velocity;
-    this.mousePointer = new MousePointer();
+    this.mousePointer = new MousePointer({
+      x: this.ctx.canvas.offsetLeft,
+      y: this.ctx.canvas.offsetTop,
+    });
   }
 
   draw() {

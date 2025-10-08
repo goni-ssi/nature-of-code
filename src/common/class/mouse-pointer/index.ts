@@ -2,13 +2,13 @@ export class MousePointer {
   private x: number;
   private y: number;
 
-  constructor() {
-    this.x = 0;
-    this.y = 0;
+  constructor({ x, y }: { x: number; y: number }) {
+    this.x = x;
+    this.y = y;
 
     document.addEventListener("mousemove", (event) => {
-      this.x = event.clientX;
-      this.y = event.clientY;
+      this.x = event.clientX - x;
+      this.y = event.clientY - y;
     });
   }
 

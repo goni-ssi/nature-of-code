@@ -14,8 +14,8 @@ const AcceleratingTowardTheMouse = () => {
     if (!ctx) return;
 
     const pixelRatio = devicePixelRatio > 1 ? 2 : 1;
-    const stageWidth = document.body.clientWidth;
-    const stageHeight = document.body.clientHeight;
+    const stageWidth = canvas.clientWidth;
+    const stageHeight = canvas.clientHeight;
 
     ctx.canvas.width = stageWidth * pixelRatio;
     ctx.canvas.height = stageHeight * pixelRatio;

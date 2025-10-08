@@ -9,12 +9,14 @@ function App() {
   );
 
   return (
-    <div className="flex">
+    <div className="flex h-screen w-screen">
       <Sidebar
         selectedExercise={selectedExercise}
         setSelectedExercise={setSelectedExercise}
       />
-      <selectedExercise.module.default />
+      <div className="flex-1">
+        <selectedExercise.module.default />
+      </div>
     </div>
   );
 }
