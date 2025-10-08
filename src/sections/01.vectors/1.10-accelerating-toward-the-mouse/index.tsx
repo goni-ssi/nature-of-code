@@ -1,36 +1,25 @@
 import { useEffect, useRef } from "react";
 import { Vector } from "../../../common/utils/vector";
 import { Mover } from "./mover";
+import { Canvas, type CanvasProps } from "@/common/components/canvas";
 
 const AcceleratingTowardTheMouse = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<CanvasProps>(null);
 
   useEffect(() => {
     if (!canvasRef.current) return;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-
-    if (!ctx) return;
-
-    const pixelRatio = devicePixelRatio > 1 ? 2 : 1;
-    const stageWidth = canvas.clientWidth;
-    const stageHeight = canvas.clientHeight;
-
-    ctx.canvas.width = stageWidth * pixelRatio;
-    ctx.canvas.height = stageHeight * pixelRatio;
-
-    ctx.scale(pixelRatio, pixelRatio);
 
     const mover = new Mover({
-      ctx,
+      canvas,
       position: new Vector(0, 0),
       velocity: new Vector(4, 4),
     });
 
     const animate = () => {
       requestAnimationFrame(() => {
-        ctx.clearRect(0, 0, stageWidth, stageHeight);
+        canvas.ctx.clearRect(0, 0, canvas.stageWidth, canvas.stageHeight);
         mover.draw();
         animate();
       });
@@ -39,7 +28,7 @@ const AcceleratingTowardTheMouse = () => {
     animate();
   }, []);
 
-  return <canvas ref={canvasRef} />;
+  return <Canvas ref={canvasRef} />;
 };
 
 export default AcceleratingTowardTheMouse;

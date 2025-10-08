@@ -1,36 +1,37 @@
+import type { CanvasProps } from "@/common/components/canvas";
 import { MousePointer } from "../../../common/class/mouse-pointer";
 import { Vector } from "../../../common/utils/vector";
 
 export class Mover {
-  public ctx: CanvasRenderingContext2D;
+  public canvas: CanvasProps;
   public position: Vector;
   public velocity: Vector;
   private mousePointer: MousePointer;
 
   constructor({
-    ctx,
+    canvas,
     position,
     velocity,
   }: {
-    ctx: CanvasRenderingContext2D;
+    canvas: CanvasProps;
     position: Vector;
     velocity: Vector;
   }) {
-    this.ctx = ctx;
+    this.canvas = canvas;
     this.position = position;
     this.velocity = velocity;
     this.mousePointer = new MousePointer({
-      x: this.ctx.canvas.offsetLeft,
-      y: this.ctx.canvas.offsetTop,
+      x: this.canvas.ctx.canvas.offsetLeft,
+      y: this.canvas.ctx.canvas.offsetTop,
     });
   }
 
   draw() {
-    this.ctx.beginPath();
-    this.ctx.arc(this.position.x, this.position.y, 10, 0, Math.PI * 2);
-    this.ctx.fillStyle = "green";
-    this.ctx.fill();
-    this.ctx.closePath();
+    this.canvas.ctx.beginPath();
+    this.canvas.ctx.arc(this.position.x, this.position.y, 10, 0, Math.PI * 2);
+    this.canvas.ctx.fillStyle = "green";
+    this.canvas.ctx.fill();
+    this.canvas.ctx.closePath();
 
     this.update();
   }
@@ -43,12 +44,12 @@ export class Mover {
     attractor.normalize();
     attractor.multiply(0.2);
 
-    this.ctx.beginPath();
-    this.ctx.moveTo(this.position.x, this.position.y);
-    this.ctx.lineTo(mousePosition.x, mousePosition.y);
-    this.ctx.strokeStyle = "red";
-    this.ctx.stroke();
-    this.ctx.closePath();
+    this.canvas.ctx.beginPath();
+    this.canvas.ctx.moveTo(this.position.x, this.position.y);
+    this.canvas.ctx.lineTo(mousePosition.x, mousePosition.y);
+    this.canvas.ctx.strokeStyle = "red";
+    this.canvas.ctx.stroke();
+    this.canvas.ctx.closePath();
 
     this.velocity.add(attractor);
     this.velocity.limit(10);

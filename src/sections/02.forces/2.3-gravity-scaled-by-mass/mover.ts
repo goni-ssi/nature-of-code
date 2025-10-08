@@ -1,48 +1,47 @@
+import type { CanvasProps } from "@/common/components/canvas";
 import { Vector } from "../../../common/utils/vector";
 
 export class Mover {
-  public ctx: CanvasRenderingContext2D;
+  public canvas: CanvasProps;
   public position: Vector;
   public mass: number;
   public radius: number;
   public velocity: Vector;
   public acceleration: Vector;
-  public stageWidth: number;
-  public stageHeight: number;
   public color: string;
 
   constructor({
-    ctx,
+    canvas,
     position,
     mass,
-    stageWidth,
-    stageHeight,
     color,
   }: {
-    ctx: CanvasRenderingContext2D;
+    canvas: CanvasProps;
     position: Vector;
     mass: number;
-    stageWidth: number;
-    stageHeight: number;
     color: string;
   }) {
-    this.ctx = ctx;
+    this.canvas = canvas;
     this.position = position;
     this.mass = mass;
     this.radius = this.mass * 1.5;
     this.velocity = new Vector(0, 0);
     this.acceleration = new Vector(0, 0);
-    this.stageWidth = stageWidth;
-    this.stageHeight = stageHeight;
     this.color = color;
   }
 
   draw() {
-    this.ctx.beginPath();
-    this.ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
-    this.ctx.fillStyle = this.color;
-    this.ctx.fill();
-    this.ctx.closePath();
+    this.canvas.ctx.beginPath();
+    this.canvas.ctx.arc(
+      this.position.x,
+      this.position.y,
+      this.radius,
+      0,
+      Math.PI * 2
+    );
+    this.canvas.ctx.fillStyle = this.color;
+    this.canvas.ctx.fill();
+    this.canvas.ctx.closePath();
 
     this.update();
   }
@@ -65,8 +64,8 @@ export class Mover {
       this.acceleration.x *= -1;
     }
 
-    if (this.position.x + this.radius > this.stageWidth) {
-      this.position.x = this.stageWidth - this.radius;
+    if (this.position.x + this.radius > this.canvas.stageWidth) {
+      this.position.x = this.canvas.stageWidth - this.radius;
       this.velocity.x *= -1;
       this.acceleration.x *= -1;
     }
@@ -77,8 +76,8 @@ export class Mover {
       this.acceleration.y *= -1;
     }
 
-    if (this.position.y + this.radius > this.stageHeight) {
-      this.position.y = this.stageHeight - this.radius;
+    if (this.position.y + this.radius > this.canvas.stageHeight) {
+      this.position.y = this.canvas.stageHeight - this.radius;
       this.velocity.y *= -1;
       this.acceleration.y *= -1;
     }

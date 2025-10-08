@@ -1,47 +1,37 @@
 import { useEffect, useRef } from "react";
 import { Vector } from "../../../common/utils/vector";
 import { Mover } from "./mover";
+import { Canvas, type CanvasProps } from "@/common/components/canvas";
+import { random } from "es-toolkit";
 
 const NBodies = () => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef<CanvasProps>(null);
 
   useEffect(() => {
     if (!canvasRef.current) return;
 
     const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
 
-    if (!ctx) return;
-
-    const pixelRatio = devicePixelRatio > 1 ? 2 : 1;
-    const stageWidth = canvas.clientWidth;
-    const stageHeight = canvas.clientHeight;
-
-    ctx.canvas.width = stageWidth * pixelRatio;
-    ctx.canvas.height = stageHeight * pixelRatio;
-
-    ctx.scale(pixelRatio, pixelRatio);
-
-    const movers = Array.from(
-      { length: 5 },
-      () =>
-        new Mover({
-          ctx,
-          stageWidth,
-          stageHeight,
-          position: new Vector(
-            Math.random() * stageWidth,
-            Math.random() * stageHeight
-          ),
-          velocity: new Vector(Math.random(), Math.random()),
-          mass: Math.random() * 20 + 10,
-          color: `hsl(${Math.random() * 360}, 100%, 50%)`,
-        })
-    );
+    const movers = [
+      ...Array.from(
+        { length: 5 },
+        () =>
+          new Mover({
+            canvas,
+            position: new Vector(
+              random((canvas.stageWidth / 5) * 1, (canvas.stageWidth / 5) * 4),
+              random((canvas.stageHeight / 5) * 1, (canvas.stageHeight / 5) * 4)
+            ),
+            velocity: new Vector(Math.random(), Math.random()),
+            mass: Math.random() * 20 + 10,
+            color: `hsl(${Math.random() * 360}, 100%, 50%)`,
+          })
+      ),
+    ];
 
     const animate = () => {
       requestAnimationFrame(() => {
-        ctx.clearRect(0, 0, stageWidth, stageHeight);
+        canvas.ctx.clearRect(0, 0, canvas.stageWidth, canvas.stageHeight);
 
         movers.forEach((mover1) => {
           movers.forEach((mover2) => {
@@ -62,7 +52,7 @@ const NBodies = () => {
     animate();
   }, []);
 
-  return <canvas ref={canvasRef} />;
+  return <Canvas ref={canvasRef} />;
 };
 
 export default NBodies;
