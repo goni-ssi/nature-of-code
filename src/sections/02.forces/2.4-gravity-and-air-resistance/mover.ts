@@ -1,4 +1,4 @@
-import { Vector } from "../../common/utils/vector";
+import { Vector } from "../../../common/utils/vector";
 
 export class Mover {
   public ctx: CanvasRenderingContext2D;
@@ -48,14 +48,35 @@ export class Mover {
   }
 
   update() {
-    const gravityAcceleration = new Vector(0, 0.98);
-    const force = gravityAcceleration.multiply(this.mass);
-    // 중력가속도는 9.8 m/s^2 로 고정
-    const acceleration = this.applyForce(force, this.acceleration.copy());
+    const gravityAcceleration = this.applyGravity(this.acceleration.copy());
 
-    this.velocity.add(acceleration);
+    this.velocity.add(gravityAcceleration);
+
+    const dragAcceleration = this.applyDrag(gravityAcceleration.copy());
+    this.velocity.add(dragAcceleration);
+
     this.position.add(this.velocity);
     this.checkEdges();
+  }
+
+  applyGravity(acceleration: Vector) {
+    const gravity = new Vector(0, 0.98);
+    const force = gravity.multiply(this.mass);
+
+    const gravityAcceleration = this.applyForce(force, acceleration.copy());
+    return gravityAcceleration;
+  }
+
+  applyDrag(acceleration: Vector) {
+    const dragCoefficient = 0.01;
+    const crossSectionArea = (Math.PI * this.radius) / 100;
+    const dragMagnitude = this.velocity.magnitude() ^ 2;
+    const dragForce = this.velocity
+      .copy()
+      .multiply(-dragCoefficient * dragMagnitude * crossSectionArea);
+
+    const dragAcceleration = this.applyForce(dragForce, acceleration.copy());
+    return dragAcceleration;
   }
 
   checkEdges() {

@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { Vector } from "../../common/utils/vector";
+import { Vector } from "../../../common/utils/vector";
 import { Mover } from "./mover";
 
-export const GravityAndAirResistance = () => {
+const GravityAndAirResistance = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -54,3 +54,5 @@ export const GravityAndAirResistance = () => {
 
   return <canvas ref={canvasRef} />;
 };
+
+export default GravityAndAirResistance;

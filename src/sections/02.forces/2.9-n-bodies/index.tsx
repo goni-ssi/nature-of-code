@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { Vector } from "../../common/utils/vector";
+import { Vector } from "../../../common/utils/vector";
 import { Mover } from "./mover";
 
-export const NBodies = () => {
+const NBodies = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -64,3 +64,5 @@ export const NBodies = () => {
 
   return <canvas ref={canvasRef} />;
 };
+
+export default NBodies;

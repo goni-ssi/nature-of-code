@@ -1,4 +1,4 @@
-import { Vector } from "../../common/utils/vector";
+import { Vector } from "../../../common/utils/vector";
 
 export class Mover {
   public ctx: CanvasRenderingContext2D;

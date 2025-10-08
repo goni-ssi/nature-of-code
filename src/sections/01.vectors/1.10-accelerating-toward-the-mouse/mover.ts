@@ -1,5 +1,5 @@
-import { MousePointer } from "../../common/class/mouse-pointer";
-import { Vector } from "../../common/utils/vector";
+import { MousePointer } from "../../../common/class/mouse-pointer";
+import { Vector } from "../../../common/utils/vector";
 
 export class Mover {
   public ctx: CanvasRenderingContext2D;

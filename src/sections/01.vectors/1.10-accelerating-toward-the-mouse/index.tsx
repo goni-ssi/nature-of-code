@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
-import { Vector } from "../../common/utils/vector";
+import { Vector } from "../../../common/utils/vector";
 import { Mover } from "./mover";
 
-export const AcceleratingTowardTheMouse = () => {
+const AcceleratingTowardTheMouse = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -41,3 +41,5 @@ export const AcceleratingTowardTheMouse = () => {
 
   return <canvas ref={canvasRef} />;
 };
+
+export default AcceleratingTowardTheMouse;
