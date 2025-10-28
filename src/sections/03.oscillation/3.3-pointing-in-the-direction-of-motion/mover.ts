@@ -36,7 +36,6 @@ export class Mover {
     const mousePosition = this.mousePointer.getPosition();
     const attractor = new Vector(mousePosition.x, mousePosition.y);
 
-    this.canvas.ctx.save();
     this.drawRect();
     this.drawLine(attractor);
     this.update(attractor);
@@ -46,6 +45,7 @@ export class Mover {
     const centerX = this.position.x + this.width / 2;
     const centerY = this.position.y + this.height / 2;
 
+    this.canvas.ctx.save();
     this.canvas.ctx.translate(centerX, centerY);
     this.canvas.ctx.rotate(this.angle);
     this.canvas.ctx.translate(-centerX, -centerY);
