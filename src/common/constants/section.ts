@@ -1,11 +1,13 @@
 import { groupBy } from "es-toolkit";
 
 const sectionFiles: Record<string, Module> = import.meta.glob(
-  "/src/sections/**/*.tsx",
+  "/src/sections/**/index.tsx",
   {
     eager: true,
   }
 );
+
+console.log(sectionFiles);
 
 const parseSections = (sections: Record<string, Module>) => {
   const parsed = Object.entries(sections).map(([path, module]) => {
