@@ -26,7 +26,7 @@ export class Emitter {
   draw() {
     this.particles.forEach((particle) => particle.draw());
 
-    const addPetal = Math.random() > 0.8;
+    const addPetal = Math.random() > 0.2;
 
     this.particles = addPetal
       ? [
@@ -35,7 +35,7 @@ export class Emitter {
             canvas: this.canvas,
             position: new Vector(Math.random() * this.canvas.stageWidth, -10),
             velocity: new Vector(Math.random() * 2 - 1, Math.random() * 2),
-            lifespan: Math.random() * 1 + 2,
+            lifespan: Math.random() * 1 + 3,
             width: 25,
             height: 25,
           }),
