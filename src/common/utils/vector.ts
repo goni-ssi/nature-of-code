@@ -61,4 +61,9 @@ export class Vector {
   copy() {
     return new Vector(this.x, this.y);
   }
+
+  setMagnitude(magnitude: number) {
+    this.normalize();
+    this.multiply(magnitude);
+  }
 }
