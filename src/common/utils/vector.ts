@@ -65,5 +65,24 @@ export class Vector {
   setMagnitude(magnitude: number) {
     this.normalize();
     this.multiply(magnitude);
+
+    return this;
+  }
+
+  angle() {
+    this.normalize();
+
+    return Math.atan2(this.y, this.x);
+  }
+
+  rotate(radian: number) {
+    const cos = Math.cos(radian);
+    const sin = Math.sin(radian);
+    const x = this.x * cos + this.y * sin;
+    const y = -this.x * sin + this.y * cos;
+    this.x = x;
+    this.y = y;
+
+    return this;
   }
 }
